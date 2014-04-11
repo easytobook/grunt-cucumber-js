@@ -11,6 +11,7 @@ module.exports = function (grunt) {
     var steps = options.steps;
     var tags = options.tags;
     var format = options.format;
+    var environment = options.environment;
     var modulePath = options.modulePath;
 
     grunt.verbose.writeflags(options, 'Options');
@@ -60,6 +61,11 @@ module.exports = function (grunt) {
     if (! _.isEmpty(format)) {
       execOptions.push('-f');
       execOptions.push(format);
+    }
+
+    if (! _.isEmpty(tags)) {
+      execOptions.push('-e');
+      execOptions.push(environment);
     }
 
     var cucumberPath = 'cucumber';
