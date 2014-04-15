@@ -16,9 +16,9 @@ module.exports = function (grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    // remove uncaught exception handlers from grunt process to allow cucumber to catch assertion errors
     var uncaughtExceptionHandlers = process.listeners('uncaughtException');
     process.removeAllListeners('uncaughtException');
+
     var restore = function() {
       uncaughtExceptionHandlers.forEach(
         process.on.bind(process, 'uncaughtException'));
