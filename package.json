@@ -27,7 +27,7 @@
   },
   "scripts": {},
   "dependencies": {
-    "cucumber": "git://github.com/easytobook/cucumber-js.git/#49a60da02afa7744d1a739748ec3eb9ce54dc348"
+    "cucumber": "git://github.com/easytobook/cucumber-js.git/#39ea3c20e42c827f848a8291933b78df816bc350"
   },
   "devDependencies": {
     "grunt": "~0.4.0",
