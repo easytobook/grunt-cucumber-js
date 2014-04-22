@@ -1,9 +1,23 @@
 module.exports = function (grunt) {
 
+  var util = require('util');
+
   // The Cucumber Task
   grunt.registerMultiTask('cucumberjs', 'Runs cucumber.js', function () {
     // Make this task async
     var done = this.async();
+
+    // hijack console.info to capture reporter output
+    var dest = this.data.dest;
+    var output = [];
+    var consoleInfo = console.info;
+
+    if (dest) {
+      console.info = function() {
+        consoleInfo.apply(console, arguments);
+        output.push(util.format.apply(util, arguments));
+      };
+    }
 
     // Load all the options
     var options = this.options();
@@ -21,7 +35,11 @@ module.exports = function (grunt) {
 
     var restore = function() {
       uncaughtExceptionHandlers.forEach(
-        process.on.bind(process, 'uncaughtException'));
+      process.on.bind(process, 'uncaughtException'));
+      if (dest) {
+        console.info = consoleInfo;
+        grunt.file.write(dest, output.join('\n'));
+      }
     };
 
     var callback = function(succeeded) {
